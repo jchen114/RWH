@@ -35,7 +35,8 @@ sortByLengths ass = sortBy order' ass
 
 order' :: [a] -> [a] -> Ordering
 order' as bs
-  | length as > length bs = GT
-  | length as < length bs = LT
-  | length as == length bs = EQ
-
+  | las > lbs = GT
+  | las < lbs = LT
+  | las == lbs = EQ
+  where las = length as
+        lbs = length bs
