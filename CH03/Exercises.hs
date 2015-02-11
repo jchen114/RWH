@@ -55,10 +55,10 @@ heightOfTree (Node a (Nothing) (Nothing)) = 1
 
 whatTurn :: (Ord a, Num a, Floating a, Fractional a) => (a,a) -> (a,a) -> (a,a) -> Direction
 whatTurn (a,b) (c,d) (e,f)
-  | slope (a,b) (c,d) < slope (c,d) (e,f) = L
-  | slope (a,b) (c,d) > slope (c,d) (e,f) = R
+  | calcDir (a,b) (c,d) (e,f) < 0 = R
+  | calcDir (a,b) (c,d) (e,f) > 0 = L
   | otherwise = S
-  where slope (a,b) (c,d) = (d-b) / (c-a) 
+  where calcDir (a,b) (c,d) (e,f) = (c-a)*(f-b) - (d-b)*(e-a) 
 
 list2Direction :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [Direction]
 list2Direction as
@@ -66,15 +66,29 @@ list2Direction as
   | otherwise = [whatTurn (as !! 0) (as !! 1) (as !! 2)]
   where points = take 3 
 
---convexHull :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [(a,a)]
+--let a = [(3,2),(2,1),(5,3),(3,4),(4,1),(1,3),(3,3),(4,5),(3,0),(5,2),(2,2),(4,3)]
 
+convexHull :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [Direction]
+convexHull as = list2Direction $ (sortAngle . removeRedXCoord) as ++ [min as]
+                where min as = minimumPoint as
+
+removeRedXCoord :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [(a,a)]
+removeRedXCoord as = concat $ map minMax $ (groupY . sortX) as
+  where sortX = sortBy (comparing (\(x,y) -> x))
+        groupY = groupBy (\(x,y) -> \(u,v) -> x == u)
+        minMax as
+          | length as > 2 = [head (f as)] ++ [last (f as)]
+          | otherwise = as
+          where f as = sortBy (comparing (\(x,y) -> y)) as
+   
 sortAngle :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [(a,a)]
-sortAngle as = sortBy (comparing (angle (min as))) $ delete (min as) as
+sortAngle as = sortBy (comparing (angle (min as))) as
                where angle (a,b) (c,d)
+                       | a == c && b == d = 0
                        | c - a >= 0 = atan ((d-b)/(c-a))
                        | otherwise = pi + atan ((d-b)/(c-a))
                      min = minimumPoint
-
+                     
 minimumPoint :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> (a,a)
 minimumPoint as = minimumBy minimumPointOrdering as
 
