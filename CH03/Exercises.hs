@@ -7,7 +7,7 @@ data List a = Cons a (List a)
 
 data Tree a = Node a (Maybe (Tree a)) (Maybe (Tree a))
 
-data Direction = L | R | S deriving (Show)
+data Direction = L | R | S deriving (Show, Eq)
 
 converse :: List a -> [a]
 converse (Cons a as) = a : converse as
@@ -68,10 +68,23 @@ list2Direction as
 
 --let a = [(3,2),(2,1),(5,3),(3,4),(4,1),(1,3),(3,3),(4,5),(3,0),(5,2),(2,2),(4,3)]
 
-convexHull :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [Direction]
-convexHull as = list2Direction $ (sortAngle . removeRedXCoord) as ++ [min as]
-                where min as = minimumPoint as
+convexHull :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [(a,a)]
+convexHull as = findCoords (filterCoord as) (list2Direction $ filterCoord as) False
+  where filterCoord as = (sortAngle . removeRedXCoord) as ++ [min as]
+          where min = minimumPoint
 
+findCoords :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [Direction] -> Bool -> [(a,a)]
+findCoords (a:as) (d:ds) skip
+  | ds == [] && d == R && skip == False = [a] ++ [last as]
+  | ds == [] && (d == L || d == S) && skip == False = [a] ++ as
+  | ds == [] && skip == True = [last as]
+  | d == S && skip == False = [a] ++ findCoords as ds False
+  | d == L && skip == False = [a] ++ findCoords as ds False
+  | d == R && skip == False = findCoords as ds True
+  | d == S && skip == True = findCoords as ds True
+  | d == L && skip == True = findCoords as ds False
+  | d == R && skip == True = findCoords as ds True
+                      
 removeRedXCoord :: (Ord a, Num a, Floating a, Fractional a) => [(a,a)] -> [(a,a)]
 removeRedXCoord as = concat $ map minMax $ (groupY . sortX) as
   where sortX = sortBy (comparing (\(x,y) -> x))
