@@ -1,4 +1,4 @@
 # RWH
 Real World Haskell Practice
 
-All the chapter practice problems.
+Most of the chapter practice problems. Which means the problems that I think were important and educational.
