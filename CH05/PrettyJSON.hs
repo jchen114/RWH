@@ -45,7 +45,7 @@ simpleEscapes = zipWith ch "\b\n\f\r\t\\\"/" "bnfrt\\\"/"
 	
 smallHex :: Int -> Doc
 smallHex x  = text "\\u"
-           <> text (replicate (4 - length h) '0')
+           <> text (replicate (4 - length h) '0') -- Looks like padding
            <> text h
     where h = showHex x ""
 
