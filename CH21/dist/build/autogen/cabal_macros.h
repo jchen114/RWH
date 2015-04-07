@@ -14,6 +14,13 @@
   (major1) == 2 && (major2) <  3 || \
   (major1) == 2 && (major2) == 3 && (minor) <= 2)
 
+/* package HDBC-sqlite3-2.3.3.0 */
+#define VERSION_HDBC_sqlite3 "2.3.3.0"
+#define MIN_VERSION_HDBC_sqlite3(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  3 || \
+  (major1) == 2 && (major2) == 3 && (minor) <= 3)
+
 /* package base-4.7.0.1 */
 #define VERSION_base "4.7.0.1"
 #define MIN_VERSION_base(major1,major2,minor) (\

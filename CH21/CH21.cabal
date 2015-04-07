@@ -16,12 +16,16 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 executable CH21
-  main-is: Main.hs
+  main-is: SqliteMain.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       
+  build-depends:
    base >=4.7 && <4.8,
    HDBC >=2.4.0.0,
-   HDBC-postgresql >=2.3.2.2
-  hs-source-dirs: src/
+   HDBC-postgresql >=2.3.2.2,
+   HDBC-sqlite3 >=2.3.3.0
+  hs-source-dirs: 
+   src/,
+   src/DBManager/,
+   src/Models/
   default-language:    Haskell2010
