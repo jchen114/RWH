@@ -1,4 +1,4 @@
-module PostGreSqlDBManager ( DBConnection (..)
+module DBManager.PostGreSqlDBManager ( DBConnection (..)
                  , DBInteger (..)
                  , DBTable (..)
                  , DBText (..)

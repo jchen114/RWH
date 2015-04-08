@@ -1,8 +1,9 @@
-module SqliteDBManager (
+module DBManager.SqliteDBManager (
  DBConnection (..)
  , DBInteger (..)
  , DBText (..)
- , DBFieldType
+ , DBFieldType (..)
+ , DBTable (..)
  , createDBConnection
  , createTable
  , saveToDB
@@ -55,13 +56,13 @@ createDBConnection (DBConnection dBFile) = catchSql connect handle where
 disconnectDBConnection :: Connection -> IO ()
 disconnectDBConnection conn = disconnect conn
 
-createTable :: (IConnection c) => c -> DBTable -> IO () 
+createTable :: Connection -> DBTable -> IO () 
 createTable conn (DBTable name params) = do 
- run conn ("CREATE TABLE" ++ name ++ "(" ++ (params2Str params) ++ ");") []
+ run conn ("CREATE TABLE " ++ name ++ "(" ++ (params2Str params) ++ ");") []
  commit conn
 
-params2Str :: [(String, DBFieldType)] ->String
-params2Str params = intercalate "," $ map tup2Str $ map (second dBFieldTypeToString) params
+params2Str :: [(String, DBFieldType)] -> String
+params2Str params = intercalate ", " $ map tup2Str $ map (second dBFieldTypeToString) params
  where tup2Str (a, b) = a ++ ", " ++ b
 
 saveToDB :: (IConnection d, Convertible a SqlValue, MonadIO m) => d -> String -> [(String, a)] -> m Integer
@@ -74,3 +75,4 @@ saveToDB db tblName cv = do
   where createQs cv = (init . concat) $ replicate (length cv) "?,"
         columns cv = intercalate "," $ (fst . unzip) cv
         valToSql cv = fmap toSql $ (snd . unzip) cv
+
