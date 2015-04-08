@@ -1,4 +1,4 @@
-import SqlLiteDBManager
+import DBManager.SqlLiteDBManager
 
 main :: IO ()
 main = do

@@ -2,5 +2,5 @@ Building CH21-0.1.0.0...
 Preprocessing executable 'CH21' for CH21-0.1.0.0...
 
 src/SqliteMain.hs:1:8:
-    Could not find module ‘DBManager’
+    Could not find module ‘DBManager.SqlLiteDBManager’
     Use -v to see a list of the files searched for.

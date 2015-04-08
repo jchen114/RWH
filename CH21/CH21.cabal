@@ -19,11 +19,14 @@ executable CH21
   main-is: SqliteMain.hs
   -- other-modules:       
   -- other-extensions:    
+  extensions: FlexibleContexts
   build-depends:
    base >=4.7 && <4.8,
    HDBC >=2.4.0.0,
    HDBC-postgresql >=2.3.2.2,
-   HDBC-sqlite3 >=2.3.3.0
+   HDBC-sqlite3 >=2.3.3.0,
+   convertible >=1.1.0.0,
+   mtl >=1.1.0.2
   hs-source-dirs: 
    src/,
    src/DBManager/,
