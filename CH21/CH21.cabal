@@ -18,18 +18,35 @@ cabal-version:       >=1.10
 library
  exposed-modules: DBManager.SqliteDBManager
                   DBManager.PostGreSqlDBManager
- extensions: FlexibleContexts
+ extensions: FlexibleContexts, OverloadedStrings, ExtendedDefaultRules
  build-depends:
   base >=4.7 && <4.8,
   HDBC >=2.4.0.0,
   HDBC-sqlite3 >=2.3.3.0,
   HDBC-postgresql >=2.3.2.2,
   convertible >=1.1.0.0,
-  mtl >=1.1.0.2
+  mtl >=1.1.0.2,
+  mongoDB >= 2.0.3
  hs-source-dirs: src
 
 executable testCreateTable
   main-is: CreateTable.hs
+  -- other-modules:
+  -- other-extensions:    
+  build-depends: CH21,
+                 base >=4.7 && <4.8
+  hs-source-dirs: tests
+  default-language: Haskell2010
+
+executable testMongo
+  main-is: MongoTest.hs
+  build-depends: CH21,
+                 base >=4.7 && <4.8
+  hs-source-dirs: tests
+  default-language: Haskell2010
+
+executable testInsertIntoTable
+  main-is: InsertIntoTable.hs
   -- other-modules:
   -- other-extensions:    
   build-depends: CH21,

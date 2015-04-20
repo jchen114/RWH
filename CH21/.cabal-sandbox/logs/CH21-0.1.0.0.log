@@ -1,17 +1,1 @@
-Building CH21-0.1.0.0...
-Preprocessing library CH21-0.1.0.0...
-[2 of 2] Compiling DBManager.SqliteDBManager ( src/DBManager/SqliteDBManager.hs, dist/dist-sandbox-68e04cf/build/DBManager/SqliteDBManager.o )
-[1 of 2] Compiling DBManager.PostGreSqlDBManager ( src/DBManager/PostGreSqlDBManager.hs, dist/dist-sandbox-68e04cf/build/DBManager/PostGreSqlDBManager.p_o )
-[2 of 2] Compiling DBManager.SqliteDBManager ( src/DBManager/SqliteDBManager.hs, dist/dist-sandbox-68e04cf/build/DBManager/SqliteDBManager.p_o )
-In-place registering CH21-0.1.0.0...
-Preprocessing executable 'testCreateTable' for CH21-0.1.0.0...
-
-tests/CreateTable.hs:1:1:
-    Could not find module ‘Prelude’
-    It is a member of the hidden package ‘base’.
-    Perhaps you need to add ‘base’ to the build-depends in your .cabal file.
-    It is a member of the hidden package ‘haskell98-2.0.0.3’.
-    Perhaps you need to add ‘haskell98’ to the build-depends in your .cabal file.
-    It is a member of the hidden package ‘haskell2010-1.1.2.0’.
-    Perhaps you need to add ‘haskell2010’ to the build-depends in your .cabal file.
-    Use -v to see a list of the files searched for.
+setup-Cabal-1.18.1.4-x86_64-osx-ghc-7.8.3: LICENSE: does not exist

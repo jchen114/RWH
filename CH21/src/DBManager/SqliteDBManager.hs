@@ -76,3 +76,4 @@ saveToDB db tblName cv = do
         columns cv = intercalate "," $ (fst . unzip) cv
         valToSql cv = fmap toSql $ (snd . unzip) cv
 
+
